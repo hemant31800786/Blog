@@ -1,0 +1,124 @@
+﻿@page "/"
+
+
+
+
+
+@inject IDialogService DialogService
+
+@inject Blog.Core.IUnitOfWork IUnitOfWork
+
+<PageTitle>Home</PageTitle>
+
+
+
+<MudGrid>
+    <MudItem xs="12" sm="12">
+
+        <MudGrid>
+            <MudItem xs="12" sm="7">
+                <MudIconButton Icon="@Icons.Material.Filled.PostAdd" Color="Color.Inherit" Edge="Edge.End" OnClick="@AddBlogAsync" /><span class="mud-typography mud-typography-caption ma-1">
+                    Blog
+
+                </span>
+            </MudItem>
+            <MudItem xs="8" sm="2">
+                <MudTextField @bind-Value="Search" Label="Search" Variant="Variant.Outlined" Adornment="Adornment.End" />
+
+                              
+            </MudItem>
+
+            <MudItem xs="12" sm="1">
+                <MudIconButton Icon="@Icons.Material.Filled.Search" Color="Color.Inherit" Edge="Edge.End" OnClick="@SearchData" />
+            </MudItem>
+           
+            <MudItem xs="12" sm="3">
+
+            </MudItem>
+        </MudGrid>
+
+    </MudItem>
+
+
+
+
+    @if (posts is null)
+    {
+        <MudPaper Class="d-flex  mud-width-full pa-4 ">Loading</MudPaper>
+    }
+    else if (posts.Any())
+    {
+        <MudItem xs="12" sm="10">
+
+            <BlogList posts="@posts"   />
+        </MudItem>
+
+        <MudItem xs="12" sm="2">
+
+            @if (categories is null)
+            {
+                <MudPaper Class="d-flex  mud-width-full pa-4 ">Loading</MudPaper>
+            }
+            else if (categories.Any())
+            {
+                <Categorylist categories="@categories" />
+
+            }
+
+        </MudItem>
+
+    }
+    else
+    {
+        <MudPaper Class="d-flex  mud-width-full pa-4 "> NoRecord Found </MudPaper>
+    }
+</MudGrid>
+
+
+
+
+    @code{
+        public string Search { get; set; }
+        private List<Post>? posts;
+
+        private List<Category>? categories;
+     
+
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            posts = IUnitOfWork.Post.GetPostWithComment(1, 20).ToList();
+            categories = IUnitOfWork.Category.GetAll().ToList();
+
+
+        }
+
+
+        private async Task AddBlogAsync()
+        {
+            var parameters = new DialogParameters<Detail> { { x => x.Post, new Post() } };
+
+            var dialog = await DialogService.ShowAsync<Detail>("Delete Post", parameters);
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+
+                posts = IUnitOfWork.Post.GetPostWithComment(1, 10).ToList();
+            }
+        }
+
+
+
+        private void SearchData()
+        {
+            posts = IUnitOfWork.Post.Find(xx => xx.Title.Contains(Search) || xx.Introdution.Contains(Search) || xx.Content.Contains(Search)).ToList();
+
+        }
+
+    }
+
+
+
+

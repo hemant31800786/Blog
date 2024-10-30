@@ -1,0 +1,105 @@
+﻿
+
+@inject IDialogService DialogService
+
+@inject Blog.Core.IUnitOfWork IUnitOfWork
+@if (post != null)
+{
+
+    <MudPaper Class="pa-4 ma-2" Elevation="4">
+        <MudStack Row="true" Class="pa-4 ma-2">
+            <MudAvatar Size="Size.Large">
+                <MudImage Src="images/mony.jpg" />
+            </MudAvatar>
+            <MudStack Spacing="0">
+
+                <MudText Typo="Typo.h6">@post.Title</MudText>
+                <MudText Typo="Typo.body1">@post.Introdution  </MudText>
+                <MudText Typo="Typo.body2">@((MarkupString)@post.Content )</MudText>
+
+            </MudStack>
+
+        </MudStack>
+
+        <MudPaper Class="pa-2 mt-2">
+
+            <MudText Typo="Typo.body1">
+                <MudIconButton Icon="@Icons.Material.Filled.Preview" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewBlogAsync(post))" />
+
+                <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => AddcommentAsync(post))" />
+                <MudIconButton Icon="@Icons.Material.Filled.PublishedWithChanges" Color="Color.Inherit" Edge="Edge.Start"></MudIconButton>@post.PublishedOn
+            </MudText>
+
+        </MudPaper>
+
+
+
+
+        @foreach (var comments in post.Comments)
+        {
+            <MudPaper Class="pa-2 mt-2">
+
+                <MudText Typo="Typo.body2"> <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewCommentAsync(comments))" /> @comments.Name</MudText>
+            </MudPaper>
+
+        }
+    </MudPaper>
+}
+
+    @code {
+
+        [Parameter]
+        public Post? post { get; set; }
+
+        [Parameter] public EventCallback<string> OnClick { get; set; }
+
+        private async Task AddBlogAsync()
+        {
+            var parameters = new DialogParameters<Detail> { { x => x.Post, new Post() } };
+
+            var dialog = await DialogService.ShowAsync<Detail>("Delete Post", parameters);
+            await ShowDialog(dialog);
+        }
+
+        private async Task ViewBlogAsync(Post post)
+        {
+            var parameters = new DialogParameters<Detail> { { x => x.Post, post } };
+
+            var dialog = await DialogService.ShowAsync<Detail>("View Post ", parameters);
+            await ShowDialog(dialog);
+        }
+
+
+        private async Task ViewCommentAsync(Comment comment)
+        {
+            var parameters = new DialogParameters<ViewComment> { { x => x.Comments, comment } };
+            var dialog = await DialogService.ShowAsync<ViewComment>("View Comment", parameters);
+            await ShowDialog(dialog);
+        }
+
+        private async Task AddcommentAsync(Post post)
+        {
+
+            Comment comment = new Comment();
+            comment.Post = post;
+            var parameters = new DialogParameters<ViewComment> { { x => x.Comments, comment } };
+
+            var dialog = await DialogService.ShowAsync<ViewComment>("Add Comment", parameters);
+            await ShowDialog(dialog);
+        }
+
+        private async Task ShowDialog(IDialogReference dialog)
+        {
+
+            var result = await dialog.Result;
+
+            if (!result.Canceled)
+            {
+
+              await  OnClick.InvokeAsync();
+            }
+
+        }
+
+
+    }

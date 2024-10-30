@@ -1,0 +1,19 @@
+﻿@inject Blog.Core.IUnitOfWork IUnitOfWork
+@if (this.posts != null)
+{
+    @foreach (var post in posts)
+    {
+        <BlogItem post="@post"  OnClick="Refresh"></BlogItem>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public List<Post>? posts { get; set; }
+    void Refresh()
+    {
+        posts = IUnitOfWork.Post.GetPostWithComment(1, 10).ToList();
+    }
+
+}

@@ -1,0 +1,127 @@
+﻿@page "/Detail"
+
+@using  Blog.Core.Domain
+@inject Blog.Core.IUnitOfWork IUnitOfWork
+@inject ISnackbar Snackbar
+
+
+@rendermode InteractiveServer
+
+<PageTitle>Detail</PageTitle>
+
+<MudDialog Style="width:50%">
+    <TitleContent>
+        @if (@Post?.Title == null)
+        {
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.AddComment" Class="mr-3 mb-n1" />
+                Blog
+            </MudText>
+        }
+        else
+        {<MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Comment" Class="mr-3 mb-n1" />
+                Blog Detail
+            </MudText>
+
+        }
+
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="Dform" @bind-IsValid="@Dsuccess" @bind-Errors="@errors">
+
+            <MudTextField @bind-Value="@Post.Title" Label="Title" T="string" Required="true" RequiredError="Title is required!" />
+            <MudTextField @bind-Value="@Post.Introdution" Label="Introdution" T="string" Required="true" RequiredError="Introdution is required!" />
+            <MudTextField @bind-Value="@Post.Content" Label="Content" Lines="5" T="string" Required="true" RequiredError="Content is required!" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        @if (@Post.Title != null)
+        {
+            <MudButton Color="Color.Error" OnClick="@((e)=>DeletePost(Post))">Delete</MudButton>
+        }
+
+        <MudButton Color="Color.Error" OnClick="@((e)=>SavePost(Post))">Save</MudButton>
+        
+
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+
+    bool Dsuccess;
+
+
+    MudForm Dform;
+    string[] errors = { };
+
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public Post? Post { get; set; } = new Post();
+
+    private void Cancel() => MudDialog?.Cancel();
+
+    private void DeletePost(Post post)
+    {
+
+        if (Post is not null)
+        {
+            IUnitOfWork.Post.Remove(Post);
+            IUnitOfWork.Complete();
+            Snackbar.Add("Blog Deleted", Severity.Error);
+
+        }
+
+        MudDialog.Close(DialogResult.Ok(post.Id));
+
+
+
+    }
+
+    private  async Task  SavePost(Post post)
+    {
+
+        await Dform.Validate();
+        if (Dform.IsValid && Dsuccess)
+        {
+
+
+            var entity = IUnitOfWork.Post.SingleOrDefault(item => item.Id == post.Id);
+
+            // Validate entity is not null
+            if (entity != null)
+            {
+
+                entity.Introdution = Post.Introdution;
+                entity.Content = Post.Content;
+                entity.Title = Post.Title;
+
+                Snackbar.Add("Blog Updated ", Severity.Success);
+
+            }
+            else
+            {
+                if (Post is not null)
+                {
+                    IUnitOfWork.Post.Add(Post);
+                }
+                Snackbar.Add("Blog Added ", Severity.Success);
+
+            }
+
+            IUnitOfWork.Complete();
+
+            MudDialog.Close(DialogResult.Ok(post.Id));
+
+
+        }
+    }
+
+
+}

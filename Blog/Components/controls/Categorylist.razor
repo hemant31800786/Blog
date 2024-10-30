@@ -1,0 +1,35 @@
+﻿@if (this.categories != null)
+   {
+
+    <MudPaper Class="pa-4 mud-height-full">
+        <MudList T="string" @bind-SelectedValue="SelectedValue" SelectionMode="@SelectionMode" ReadOnly="@ReadOnly" Color="@Color.Info">
+            <MudListSubheader>
+                Category
+                <MudChip Color="@Color.Info">
+                    @(SelectedValue ?? "You are dry")
+                </MudChip>
+            </MudListSubheader>
+
+            @foreach (var categorie in categories)
+            {
+                <MudListItem Text=@categorie.Name Value=@categorie.Id />
+            }
+
+
+
+        </MudList>
+
+    </MudPaper>
+
+}
+@code {
+    public string SelectedValue = "Test";
+    public SelectionMode SelectionMode = SelectionMode.SingleSelection;
+    public bool ReadOnly;
+
+
+    [Parameter]
+    public List<Category>? categories { get; set; }
+ 
+
+}

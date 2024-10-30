@@ -1,0 +1,137 @@
+﻿@page "/Comments"
+
+
+@using System.ComponentModel.DataAnnotations
+@inject Blog.Core.IUnitOfWork IUnitOfWork
+@inject ISnackbar Snackbar
+
+
+@rendermode InteractiveServer
+
+<PageTitle>Detail</PageTitle>
+
+<MudDialog Style="width:50%">
+    <TitleContent>
+        @if (@Comments?.Name == null)
+        {
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.AddComment" Class="mr-3 mb-n1" />
+                Comment
+            </MudText>
+        }
+        else
+        {<MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Comment" Class="mr-3 mb-n1" />
+                Comment Detail
+            </MudText>
+
+        }
+
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="Vform" @bind-IsValid="@Viewsuccess" @bind-Errors="@errors">
+
+            <MudTextField  Required="true" @bind-Value="@Comments.Name" Label="Comments" Lines="4" T="string"  RequiredError="Comments is required!" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        @if (@Comments.Name != null)
+        {
+            <MudButton Color="Color.Error" OnClick="@((e)=>DeletePost(@Comments))">Delete</MudButton>
+        }
+
+        <MudButton Color="Color.Error" OnClick="@((e) => SavePost(@Comments))">Save</MudButton>
+
+
+    </DialogActions>
+</MudDialog>
+
+
+
+
+@code {
+
+
+
+    bool Viewsuccess;
+
+    MudForm Vform;
+    string[] errors = { };
+
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public Comment? Comments { get; set; } = new Comment();
+
+
+
+
+    private void Cancel() => MudDialog?.Cancel();
+
+    private void DeletePost(Comment Comment)
+    {
+
+        if (Comments is not null)
+        {
+            IUnitOfWork.Comment.Remove(Comment);
+            IUnitOfWork.Complete();
+            Snackbar.Add("Comments Remove", Severity.Error);
+
+        }
+
+        MudDialog.Close(DialogResult.Ok(Comment.Id));
+
+
+    }
+
+    private async Task SavePost(Comment comment)
+    {
+
+        await Vform.Validate();
+        if (Vform.IsValid && Viewsuccess)
+        {
+            var entity = IUnitOfWork.Comment.SingleOrDefault(item => item.Id == comment.Id);
+
+            // Validate entity is not null
+            if (entity != null)
+            {
+
+                entity.Name = comment.Name;
+
+
+                Snackbar.Add("Comments Updated ", Severity.Success);
+
+            }
+            else
+            {
+                if (comment is not null)
+                {
+                    //comment.Post.Id = PostId;
+
+
+                    IUnitOfWork.Comment.Add(comment);
+                }
+                Snackbar.Add("Comments save ", Severity.Success);
+
+            }
+
+            IUnitOfWork.Complete();
+
+            MudDialog.Close(DialogResult.Ok(comment.Id));
+
+        }
+
+
+
+
+
+
+
+    }
+
+
+
+
+}

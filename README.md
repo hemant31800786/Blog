@@ -25,6 +25,7 @@ Tools->Nuget Package Manager->Package Manager Console
 ![{2179CFC3-4DA1-4F74-9B3F-E6D30A66976B}](https://github.com/user-attachments/assets/f0f3b852-1467-4a69-836a-52c2e707a0fc)
 
 **7,Edit, Delete Blog and Add new Comment.**
+
 ![{47C56683-9860-41CA-82FC-6EE431B0E504}](https://github.com/user-attachments/assets/73dd9da6-675a-4df4-9d68-5b3459489d73)
 
 **8.Edit or delete Comment**

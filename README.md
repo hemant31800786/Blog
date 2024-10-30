@@ -1,7 +1,7 @@
 
-Project Setup and Run Instructions 
+**Project Setup and Run Instructions **
 
-1. Update appsettings.json:
+**1. Update appsettings.json:**
 
 Open appsettings.json.
 Modify the connection string as follows:
@@ -11,14 +11,16 @@ Modify the connection string as follows:
     "EFUnitOfWork": "Server=(localdb)\\mssqllocaldb;Database=MVCBlog;Trusted_Connection=True;MultipleActiveResultSets=true;application name=MVCBlog"
 }
 
-2. Update the Database:
+**2. Update the Database:**
 
-Go to Tools > NuGet Package Manager > Package Manager Console.
-Run the following command:
-**PM> update-database**
+    Go to Tools > NuGet Package Manager > Package Manager Console.
+    
+    Run the following command:
+    
+    **PM> update-database**
 
 ![{4EA6B4F0-764B-4220-8AAE-F3695A1FC268}](https://github.com/user-attachments/assets/ef460a77-13d4-4ebc-a6ac-8e561c2cbe6c)
-Tools->Nuget Package Manager->Package Manager Console
+
 
 
 

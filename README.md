@@ -19,7 +19,7 @@ Tools->Nuget Package Manager->Package Manager Console
 **5,View Blog List**
 ![{EAF70EC9-37B5-4014-829C-F4AB15731553}](https://github.com/user-attachments/assets/22b791cf-bebd-4545-9535-be503e7ba04f)
 
-**6,**
+**6,View**
 ![{2179CFC3-4DA1-4F74-9B3F-E6D30A66976B}](https://github.com/user-attachments/assets/f0f3b852-1467-4a69-836a-52c2e707a0fc)
 **7,Edit, Delete Blog and Add new Comment.**
 

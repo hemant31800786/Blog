@@ -36,7 +36,7 @@
         </MudForm>
     </DialogContent>
     <DialogActions>
-        @if (@Post.Title != null)
+        @if (@Post.Title != null && @Post.Introdution != null && @Post.Content != null )
         {
             <MudButton Color="Color.Error" OnClick="@((e)=>DeletePost(Post))">Delete</MudButton>
         }

@@ -3,13 +3,14 @@
 
 **1. Update appsettings.json:**
 
-Open appsettings.json.
-Modify the connection string as follows:
-
-"ConnectionStrings": {
-    //"EFUnitOfWork": "Server=(local);Database=MVCBlog;Trust Server Certificate=true;Trusted_Connection=True;MultipleActiveResultSets=true;application name=MVCBlog",
-    "EFUnitOfWork": "Server=(localdb)\\mssqllocaldb;Database=MVCBlog;Trusted_Connection=True;MultipleActiveResultSets=true;application name=MVCBlog"
-}
+    Open appsettings.json.
+    
+    Modify the connection string as follows:
+    
+    "ConnectionStrings": {
+        
+                "EFUnitOfWork": "Server=(localdb)\\mssqllocaldb;Database=MVCBlog;Trusted_Connection=True;MultipleActiveResultSets=true;application name=MVCBlog"
+    }
 
 **2. Update the Database:**
 

@@ -13,8 +13,8 @@
             </MudAvatar>
             <MudStack Spacing="0">
 
-                <MudText Typo="Typo.h6">@post.Title</MudText>
-                <MudText Typo="Typo.body1">@post.Introdution  </MudText>
+                <MudText Typo="Typo.h6">@((MarkupString)@post.Title)</MudText>
+                <MudText Typo="Typo.body1">@((MarkupString)@post.Introdution)  </MudText>
                 <MudText Typo="Typo.body2">@((MarkupString)@post.Content )</MudText>
 
             </MudStack>

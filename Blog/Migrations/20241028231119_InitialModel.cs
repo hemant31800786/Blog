@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -86,6 +85,14 @@ namespace Blog.Migrations
                 table: "Users",
                 columns: new[] { "Id", "Email", "FirstName", "Hash", "LastName", "Salt" },
                 values: new object[] { 1, "hem7246@gmail.com", "HemantKumar", "asdfsasfsadfsdfsdafasdfsdafsdfsdf", "Babaria", "FakeDataenterabcded" });
+
+
+            migrationBuilder.InsertData(
+              table: "Category",
+              columns: new[] { "Id", "Name", "Slug", },
+              values: new object[] { 1, "C#", "C#" });
+
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_PostId",

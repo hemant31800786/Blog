@@ -17,7 +17,7 @@ Tools->Nuget Package Manager->Package Manager Console
 **4,Add Blog**
 ![{5B1F354B-0CAE-45A3-97DE-43DBEDDAABF9}](https://github.com/user-attachments/assets/892ad7c9-97fd-4c33-9638-bb159c9dd2c1)
 
-**5,View Blog List**
+**5,Fill Blog Data**
 
 ![{EAF70EC9-37B5-4014-829C-F4AB15731553}](https://github.com/user-attachments/assets/22b791cf-bebd-4545-9535-be503e7ba04f)
 

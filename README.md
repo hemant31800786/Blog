@@ -27,8 +27,8 @@
 
 3. Build and Run the Project:
 
-Build the project to ensure everything compiles correctly.
-Run the project to launch the application.
+  Build the project to ensure everything compiles correctly.
+  Run the project to launch the application.
 
 4. Add a New Blog:
 

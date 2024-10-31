@@ -1,9 +1,10 @@
 ﻿@inject Blog.Core.IUnitOfWork IUnitOfWork
+@inject NavigationManager _navigationManager
 @if (this.posts != null)
 {
     @foreach (var post in posts)
     {
-        <BlogItem post="@post"  OnClick="Refresh"></BlogItem>
+        <BlogItem post="@post" OnClick="OnClick"></BlogItem>
     }
 }
 
@@ -11,9 +12,8 @@
 
     [Parameter]
     public List<Post>? posts { get; set; }
-    void Refresh()
-    {
-        posts = IUnitOfWork.Post.GetPostWithComment(1, 10).ToList();
-    }
 
+    [Parameter]
+     public EventCallback<string> OnClick { get; set; }
+  
 }

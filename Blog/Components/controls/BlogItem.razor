@@ -24,10 +24,14 @@
         <MudPaper Class="pa-2 mt-2">
 
             <MudText Typo="Typo.body1">
-                <MudIconButton Icon="@Icons.Material.Filled.Preview" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewBlogAsync(post))" />
+                <MudTooltip Text="View Blog Or Remove Blog">
 
-                <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => AddcommentAsync(post))" />
-                <MudIconButton Icon="@Icons.Material.Filled.PublishedWithChanges" Color="Color.Inherit" Edge="Edge.Start"></MudIconButton>@post.PublishedOn
+                    <MudIconButton Icon="@Icons.Material.Filled.Preview" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewBlogAsync(post))" />
+                </MudTooltip>
+                <MudTooltip Text="Add Comment">
+                    <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => AddcommentAsync(post))" />
+                </MudTooltip>
+                    <MudIconButton Icon="@Icons.Material.Filled.PublishedWithChanges" Color="Color.Inherit" Edge="Edge.Start"></MudIconButton>@post.PublishedOn
             </MudText>
 
         </MudPaper>
@@ -38,8 +42,9 @@
         @foreach (var comments in post.Comments)
         {
             <MudPaper Class="pa-2 mt-2">
-
-                <MudText Typo="Typo.body2"> <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewCommentAsync(comments))" /> @comments.Name</MudText>
+                <MudTooltip Text="View Comment Or Remove Comment">
+                    <MudText Typo="Typo.body2"> <MudIconButton Icon="@Icons.Material.Filled.Comment" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => ViewCommentAsync(comments))" /> @comments.Name</MudText>
+                </MudTooltip>
             </MudPaper>
 
         }

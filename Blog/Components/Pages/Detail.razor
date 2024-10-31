@@ -14,8 +14,10 @@
         @if (@Post?.Title == null)
         {
             <MudText Typo="Typo.h6">
-                <MudIcon Icon="@Icons.Material.Filled.AddComment" Class="mr-3 mb-n1" />
-                Blog
+                <MudTooltip Text="Click here To View Comment">
+                    <MudIcon Icon="@Icons.Material.Filled.AddComment" Class="mr-3 mb-n1" />
+                    Blog
+                </MudTooltip>
             </MudText>
         }
         else

@@ -1,3 +1,4 @@
+**The project needs .NET 8. If the project is using a version older than .NET 8, you need to update the NuGet packages.**
 
 **Project Setup and Run Instructions ** -**Net 8 **
 

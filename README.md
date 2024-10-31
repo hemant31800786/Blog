@@ -1,5 +1,5 @@
 
-**Project Setup and Run Instructions **
+**Project Setup and Run Instructions ** -**Net 8 **
 
 **1. Update appsettings.json:**
 
@@ -11,6 +11,12 @@
         
                 "EFUnitOfWork": "Server=(localdb)\\mssqllocaldb;Database=MVCBlog;Trusted_Connection=True;MultipleActiveResultSets=true;application name=MVCBlog"
     }
+    
+ **3. Build and Run the Project:**
+
+     Build the project to ensure everything compiles correctly.
+  
+     Run the project to launch the application.
 
 **2. Update the Database:**
 
@@ -25,11 +31,7 @@
 
 
 
-**3. Build and Run the Project:**
 
-     Build the project to ensure everything compiles correctly.
-  
-     Run the project to launch the application.
 
 **4. Add a New Blog:**
 
